@@ -161,8 +161,3 @@ Full command
 
     `docker run -ti -d -p 250:25 --privileged=true -v /home/fakesmtp/mail:/output fakesmtp`
 
-
-Contact me
-----------
-
-Use my github's nickname (at) gmail (dot) com
