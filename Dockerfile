@@ -1,13 +1,17 @@
 FROM java:8
 
-RUN mkdir -p /output
+ENV OUTPUT_DIR /output
+ENV SMTP_PORT 25
+
+RUN mkdir -p $OUTPUT_DIR
 
 ADD http://nilhcem.github.com/FakeSMTP/downloads/fakeSMTP-latest.zip /fakeSMTP-latest.zip
 
 RUN unzip /fakeSMTP-latest.zip
+CMD mv fakeSMTP-*.jar fakeSMTP-latest.jar
 
-VOLUME /output
+VOLUME $OUTPUT_DIR
 
-EXPOSE 25
+EXPOSE $SMTP_PORT
 
-ENTRYPOINT ["java","-jar","/fakeSMTP-2.0.jar","--background", "--output-dir", "/output", "--port", "25", "--start-server"]
+ENTRYPOINT ["java","-jar","/fakeSMTP-latest.jar","--background", "--output-dir", "$OUTPUT_DIR", "--port", "$SMTP_PORT", "--start-server"]
