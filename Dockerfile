@@ -7,8 +7,7 @@ RUN mkdir -p $OUTPUT_DIR
 
 ADD http://nilhcem.github.com/FakeSMTP/downloads/fakeSMTP-latest.zip /fakeSMTP-latest.zip
 
-RUN unzip /fakeSMTP-latest.zip
-CMD mv fakeSMTP-*.jar fakeSMTP-latest.jar
+RUN unzip -p fakeSMTP-latest.zip fakeSMTP-*.jar >fakeSMTP-latest.jar
 
 VOLUME $OUTPUT_DIR
 
