@@ -13,4 +13,4 @@ VOLUME $OUTPUT_DIR
 
 EXPOSE $SMTP_PORT
 
-ENTRYPOINT ["java","-jar","/fakeSMTP-latest.jar","--background", "--output-dir", "$OUTPUT_DIR", "--port", "$SMTP_PORT", "--start-server"]
+ENTRYPOINT java -jar fakeSMTP-latest.jar --background --output-dir $OUTPUT_DIR --port $SMTP_PORT --start-server
