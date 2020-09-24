@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -45,7 +46,6 @@ public final class MailSaver extends Observable {
 	 * @param from the user who send the email.
 	 * @param to the recipient of the email.
 	 * @param data an InputStream object containing the email.
-	 * @see com.nilhcem.fakesmtp.gui.MainPanel#addObservers to see which observers will be notified
 	 */
 	public void saveEmailAndNotify(String from, String to, InputStream data) {
 		List<String> relayDomains = UIModel.INSTANCE.getRelayDomains();
@@ -131,17 +131,22 @@ public final class MailSaver extends Observable {
 	 */
 	private String convertStreamToString(InputStream is) {
 		final long lineNbToStartCopy = 4; // Do not copy the first 4 lines (received part)
-		BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charset.forName(I18n.UTF8)));
+
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
 		StringBuilder sb = new StringBuilder();
 
 		String line;
 		long lineNb = 0;
+
+		LOGGER.debug("Using line separator: '" + LINE_SEPARATOR + "'");
+
 		try {
 			while ((line = reader.readLine()) != null) {
 				if (++lineNb > lineNbToStartCopy) {
 					sb.append(line).append(LINE_SEPARATOR);
 				}
 			}
+			LOGGER.debug(sb.toString());
 		} catch (IOException e) {
 			LOGGER.error("", e);
 		}
