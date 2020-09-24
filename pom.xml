@@ -16,6 +16,13 @@
 		<project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
 		<docker.image>fakesmtp</docker.image>
 	</properties>
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub OWNER Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/gkgeorgiev/FakeSMTP</url>
+		</repository>
+	</distributionManagement>
 
 	<dependencies>
 		<!-- MIG Layout: layout for Swing -->
