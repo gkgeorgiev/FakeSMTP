@@ -1,8 +1,12 @@
 package com.nilhcem.fakesmtp.integration;
 
 import com.nilhcem.fakesmtp.core.Configuration;
+import com.nilhcem.fakesmtp.core.exception.BindPortException;
+import com.nilhcem.fakesmtp.core.exception.OutOfRangePortException;
 import com.nilhcem.fakesmtp.core.test.TestConfig;
+import com.nilhcem.fakesmtp.server.SMTPServerHandler;
 import org.apache.commons.mail.*;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -13,9 +17,16 @@ public final class SendEmailsIT {
 	private static final Logger logger = LoggerFactory.getLogger(SendEmailsIT.class);
 
 	@BeforeClass
-	public static void displayInfo() {
+	public static void displayInfo() throws BindPortException, OutOfRangePortException {
+		logger.info("starting SMTP server..");
+		SMTPServerHandler.INSTANCE.startServer(TestConfig.PORT_INTEGRATION_TESTS, null);
 		logger.info("Launching integration tests...");
-		logger.info("You need to run the project and launch the SMTP server on port {} before testing.", TestConfig.PORT_INTEGRATION_TESTS);
+	}
+
+	@AfterClass
+	public static void cleanUp() {
+		logger.info("stopping SMTP server...");
+		SMTPServerHandler.INSTANCE.stopServer();
 	}
 
 	@Test
