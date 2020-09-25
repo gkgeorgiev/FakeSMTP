@@ -45,7 +45,7 @@ public enum SMTPServerHandler {
 			if (exception.getMessage().contains("BindException")) { // Can't open port
 				LOGGER.error("{}. Port {}", exception.getMessage(), port);
 				throw new BindPortException(exception, port);
-			} else if (exception.getMessage().contains("out of range")) { // Port out of range
+			} else if (exception.getMessage().contains("can only be started once")) { // Port out of range
 				LOGGER.error("Port {} out of range.", port);
 				throw new OutOfRangePortException(exception, port);
 			} else { // Unknown error
