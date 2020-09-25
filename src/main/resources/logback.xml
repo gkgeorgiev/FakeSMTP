@@ -12,6 +12,9 @@
 	<logger name="org.subethamail.smtp.server.Session" level="DEBUG">
 		<appender-ref ref="SMTPLOGS" />
 	</logger>
+	<logger name="com.nilhcem.fakesmtp.server.MailSaver" level="DEBUG">
+		<appender-ref ref="SMTPLOGS" />
+	</logger>
 	<logger name="org.subethamail.smtp.server.ServerThread" level="INFO">
 		<appender-ref ref="SMTPLOGS" />
 	</logger>
